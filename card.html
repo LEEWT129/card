@@ -1,0 +1,161 @@
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>名片</title>
+    <style>
+        * {
+            position: relative;
+        }
+
+        html,
+        body {
+            margin: 0;
+            cursor: none;
+        }
+
+        body {
+            background-color: rgb(240, 239, 230);
+            border-top: solid 20px rgba(235, 61, 61, 0.8);
+            border-bottom: solid 30px rgba(235, 61, 61, 0.8);
+            overflow: hidden;
+        }
+
+        .mark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 380px;
+            letter-spacing: 60px;
+            color: rgba(99, 99, 99, 0.5);
+        }
+
+        .my-card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgb(255, 255, 255);
+            width: 350px;
+            border: solid 1px rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .my-card .name h2 {
+            letter-spacing: 2px;
+        }
+
+        .my-card .name span {
+            margin-left: 10px;
+        }
+
+        .my-card .name h5 {
+            font-weight: 600px;
+            letter-spacing: 3px;
+            color: rgb(235, 61, 61);
+        }
+
+        .my-card .content {
+            color: rgba(99, 99, 99, 0.8);
+            line-height: 30px;
+            letter-spacing: 1px;
+        }
+
+        .circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+            position: absolute;
+        }
+
+        .circle.circle1 {
+            margin-top: -20px;
+            background-color: rgb(235, 61, 61);
+            right: 100px;
+        }
+
+        .circle.circle2 {
+            width: 60px;
+            height: 60px;
+            right: -30px;
+            top: -30px;
+            border: solid 4px rgb(235, 61, 61);
+        }
+
+        .my-card:hover {
+            top: 45%;
+            left: 45%;
+            transform: translate(-45%, -45%);
+            transition: transform 0.5s ease, top 0.5s ease, left 0.5s ease;
+            box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.2);
+
+        }
+
+        .mouse-trail {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(235, 61, 61, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+            opacity: 0; 
+        }
+
+        
+    
+    </style>
+</head>
+<body>
+    <div class="mark">Lily</div>
+    <div class="my-card">
+        <div class="name">
+            <h2>李偉婷<span>Lily</span></h2>
+            <h5>前端工程師</h5>
+        </div>
+        <hr>
+        <p class="content">
+            我是李偉婷，擁有積極學習態度、優秀邏輯思維和出色人際溝通能力。<br>
+            對於網頁撰寫有極大興趣，在資展國際進修將近半年前端相關課程，目前任職於軟體業擔任前端工程師。
+        </p>
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+
+    </div>
+
+    <script>
+        // 新增鼠標樣式<div class="mouse-trail"></div>
+        const mouseTrail = document.createElement('div');
+        mouseTrail.classList.add('mouse-trail');
+        document.body.appendChild(mouseTrail);
+
+        const card = document.querySelector('.my-card');
+        // 進入卡片樣式
+        const trailColor = 'rgba(245, 255, 150,0.8)';
+        document.body.addEventListener('mousemove', (e) => {
+            const mouseX = e.pageX;
+            const mouseY = e.pageY;
+
+            const cardRect = card.getBoundingClientRect();
+            const isInCard = mouseX >= cardRect.left && mouseX <= cardRect.right &&
+                             mouseY >= cardRect.top && mouseY <= cardRect.bottom;
+
+            mouseTrail.style.backgroundColor = isInCard ? trailColor : 'rgba(235, 61, 61, 0.8)';
+            mouseTrail.style.left = `${mouseX}px`;
+            mouseTrail.style.top = `${mouseY}px`;
+        });
+
+        document.body.addEventListener('mouseleave', () => {
+            mouseTrail.style.opacity = '0';
+        });
+
+        document.body.addEventListener('mouseenter', () => {
+            mouseTrail.style.opacity = '1';
+        });
+    </script>
+</body>
+</html>
